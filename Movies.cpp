@@ -109,6 +109,7 @@ for (int i = 0; i < movieList.size(); i++) {
         cout<<movies.starList.at(0)<<endl;
         cout<<movies.starList.at(1)<<endl;
         cout<<movies.starList.at(2)<<endl;
+        cout<<endl;
 
     }
 
@@ -169,31 +170,6 @@ for (int i = 0; i < movieList.size(); i++) {
         cout<<endl;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //how the f do I print the list of movie stars out per object on the vector
-
-
-
-
-
-
-
-
-
   }
-
-
 
 }
