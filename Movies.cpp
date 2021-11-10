@@ -103,14 +103,97 @@ for (int i = 0; i < movieList.size(); i++) {
     cout << movieList.at(i).GetDuration() << endl;
     cout << movieList.at(i).GetYearReleased() << endl;
 
-    //how the f do I print the list of movie stars out per object on the vector
-    for(int i=0;i<movies.starList.size();++i){
-        cout<<movies.starList.at(i)<<endl;
 
 
+    if(i==0){
+        cout<<movies.starList.at(0)<<endl;
+        cout<<movies.starList.at(1)<<endl;
+        cout<<movies.starList.at(2)<<endl;
 
     }
 
+    if(i==1){
+        cout<<movies.starList.at(3)<<endl;
+        cout<<movies.starList.at(4)<<endl;
+        cout<<movies.starList.at(5)<<endl;
+        cout<<endl;
+
+    }
+
+    if(i==2){
+        cout<<movies.starList.at(6)<<endl;
+        cout<<movies.starList.at(7)<<endl;
+        cout<<movies.starList.at(8)<<endl;
+        cout<<endl;
+    }
+
+    if(i==3){
+        cout<<movies.starList.at(9)<<endl;
+        cout<<movies.starList.at(10)<<endl;
+        cout<<movies.starList.at(11)<<endl;
+        cout<<endl;
+    }
+
+    if(i==4){
+        cout<<movies.starList.at(12)<<endl;
+        cout<<movies.starList.at(13)<<endl;
+        cout<<movies.starList.at(14)<<endl;
+        cout<<endl;
+    }
+
+    if(i==5){
+        cout<<movies.starList.at(15)<<endl;
+        cout<<movies.starList.at(16)<<endl;
+        cout<<movies.starList.at(17)<<endl;
+        cout<<endl;
+    }
+
+    if(i==6){
+        cout<<movies.starList.at(18)<<endl;
+        cout<<movies.starList.at(19)<<endl;
+        cout<<movies.starList.at(20)<<endl;
+        cout<<endl;
+    }
+
+    if(i==7){
+        cout<<movies.starList.at(21)<<endl;
+        cout<<movies.starList.at(22)<<endl;
+        cout<<movies.starList.at(23)<<endl;
+        cout<<endl;
+    }
+
+    if(i==8){
+        cout<<movies.starList.at(24)<<endl;
+        cout<<movies.starList.at(25)<<endl;
+        cout<<movies.starList.at(26)<<endl;
+        cout<<endl;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //how the f do I print the list of movie stars out per object on the vector
+
+
+
+
+
+
+
+
+
   }
+
+
 
 }

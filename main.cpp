@@ -10,6 +10,7 @@ int main() {
 
     myMovies.loadMovies();
     cout<<"There are: " << Movies::movieCount << " movies in my library" << endl;
+    cout<<endl;
     myMovies.printMovies();
 
 }
