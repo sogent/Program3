@@ -103,7 +103,7 @@ for (int i = 0; i < movieList.size(); i++) {
     cout << movieList.at(i).GetDuration() << endl;
     cout << movieList.at(i).GetYearReleased() << endl;
 
-    //how the f do I print the list of movie stars out
+    //how the f do I print the list of movie stars out per object on the vector
     for(int i=0;i<movies.starList.size();++i){
         cout<<movies.starList.at(i)<<endl;
 
