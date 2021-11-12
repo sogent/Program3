@@ -11,12 +11,15 @@
 #include "Movies.h"
 #include <iomanip>
 #include <string>
+#include <fstream>
 using namespace std;
 
 
 
 
 int Movies::readData (){
+
+
     ifstream inFile;
     int duration, rating, yearReleased;
     inFile.open("/Users/sogent/Downloads/movieList (1).csv");
@@ -93,14 +96,35 @@ int Movies::readData (){
 
         }
 
+
     }
+
+
 
     return 0;
 }
 
+void Movies::outputMovieErrorLog(){
+    Movies myMovies;
+    myMovies.readData();
+    //Outputting error(s) to new file
+    ofstream outFS;
+    outFS.open("MovieListErrorReport.txt");
+    if (!outFS.is_open()) {
+        cout << "Could not open the file \"MovieListErrorReport.txt\"" << endl;
+    }
+    while(outFS.is_open()){
+        outFS<<"ERROR: ";
+        outFS<<movieErrorList.at(0)<<endl;
+        outFS<<"Previous record has an "<<movieErrorList.at(1)<<" error"<<endl;
+        outFS.close();
+    }
+
+}
 
 void Movies::printMovieList () {
     Movie movies;
+
     cout<<"YOUR MOVIE LIST"<<endl;
     cout<<endl;
     cout<<"#"<<setw(16)<<"TITLE"<<setw(17)<<"YEAR"<<setw(10)<<"RATING"<<endl;
@@ -117,65 +141,130 @@ void Movies::printMovieList () {
     cout<<endl;
 }
 
-void Movies::listMovieStars(){
+void Movies::listMovieStars() {
     string userInput;
-    cout<<"Enter the Movie's title: ";
-    getline(cin, userInput);
-    cout<<endl;
-    cout<<"THE STARS OF THE MOVE "<<userInput<<" ARE:"<<endl;
-    //formatting line
-    cout<<"{";
-    cout<<setfill('=')<<setw(50);
-    cout<<"}"<<endl;
-    cout<<setfill(' ');
-    for(int i=0;i<movieList.size();++i){
-        if(userInput==movieList.at(i).GetTitle()){
-            cout<<movieList.at(i).starList.at(0)<<endl;
-            cout<<movieList.at(i).starList.at(1)<<endl;
-            cout<<movieList.at(i).starList.at(2)<<endl;
+    cout << "Enter the Movie's title: ";
+    try {
+        getline(cin, userInput);
+
+        vector<int>foundIndex;
+        int matchCount=0;
+        for(int i=0;i<movieList.size();++i) {
+                int found=userInput.find(movieList.at(i).GetTitle());
+                if(found==-1){
+                    matchCount+=1;
+                }
+               // cout<<found;
+                //if the string is not found, then it will return a -1
+                //since each movie is being traversed, it will
+                //output a total equivalent to the number of movies
+
+                foundIndex.push_back(found);
 
         }
-    }
-    cout<<"{";
-    cout<<setfill('=')<<setw(50);
-    cout<<"}"<<endl;
-    cout<<setfill(' ');
-    cout<<endl;
+        cout<<matchCount;
+        cout<<endl;
 
+
+
+            if(matchCount==movieList.size()){
+                throw runtime_error("is not found in your movie library");
+            }
+
+
+
+        cout << "THE STARS OF THE MOVIE \"" << userInput << "\" ARE:" << endl;
+        cout << "{";
+        cout << setfill('=') << setw(50);
+        cout << "}" << endl;
+        cout << setfill(' ');
+        for (int i = 0; i < movieList.size(); ++i) {
+            if (userInput == movieList.at(i).GetTitle()) {
+                cout << movieList.at(i).starList.at(0) << endl;
+                cout << movieList.at(i).starList.at(1) << endl;
+                cout << movieList.at(i).starList.at(2) << endl;
+
+            }
+        }
+
+        cout << "{";
+        cout << setfill('=') << setw(50);
+        cout << "}" << endl;
+        cout << setfill(' ');
+        cout << endl;
+    } catch (runtime_error &inputError) {
+            cout<<"Sorry, but the movie: \""<< userInput <<"\" "<<inputError.what()<<endl;
+            cout<<endl;
+    }
 }
+
+
 
 void Movies::findMovie(){
     string userInput;
     cout<<"Enter the Star's name: ";
-    getline(cin, userInput);
-    cout<<endl;
+    try {
+        getline(cin, userInput);
 
-    cout<<"{";
-    cout<<setfill('=')<<setw(50);
-    cout<<"}"<<endl;
-    cout<<setfill(' ');
-    cout<<userInput<<" appears in the following movie(s):"<<endl;
+        int matchCount=0;
+        for(int i=0;i<movieList.size();++i) {
+            int found1=userInput.find(movieList.at(i).starList.at(0));
+            int found2=userInput.find(movieList.at(i).starList.at(1));
+            int found3=userInput.find(movieList.at(i).starList.at(2));
+            if(found1==-1){
+                matchCount+=1;
+            }
+            if(found2==-1){
+                matchCount+=1;
+            }
+            if(found3==-1){
+                matchCount+=1;
+            }
 
-    for(int i=0;i<movieList.size();++i){
-        if(userInput==movieList.at(i).starList.at(0)){
+            //if the string is not found, then it will return a -1
+            //since each movie is being traversed, it will
+            //output a total equivalent to the number of movies
 
-            cout << movieList.at(i).GetTitle()<<endl;
-
-        }else if(userInput==movieList.at(i).starList.at(1)){
-
-            cout << movieList.at(i).GetTitle()<<endl;
-
-        }else if(userInput==movieList.at(i).starList.at(2)){
-
-            cout << movieList.at(i).GetTitle()<<endl;
         }
+        cout<<matchCount;
+        cout<<endl;
 
+            if(matchCount>=19){
+                throw runtime_error("is not found in any movies in your movie library");
+            }
+
+            cout << endl;
+            cout << "{";
+            cout << setfill('=') << setw(50);
+            cout << "}" << endl;
+            cout << setfill(' ');
+            cout << userInput << " appears in the following movie(s):" << endl;
+
+            for (int i = 0; i < movieList.size(); ++i) {
+                if (userInput == movieList.at(i).starList.at(0)) {
+
+                    cout << movieList.at(i).GetTitle() << endl;
+
+                } else if (userInput == movieList.at(i).starList.at(1)) {
+
+                    cout << movieList.at(i).GetTitle() << endl;
+
+                } else if (userInput == movieList.at(i).starList.at(2)) {
+
+                    cout << movieList.at(i).GetTitle() << endl;
+                }
+
+            }
+            cout << "{";
+            cout << setfill('=') << setw(50);
+            cout << "}" << endl;
+            cout << setfill(' ');
+            cout << endl;
+        }catch(runtime_error& inputError){
+            cout<<"Sorry, but the star: \""<<userInput<<"\" "<<inputError.what()<<endl;
+            cout<<endl;
     }
-    cout<<"{";
-    cout<<setfill('=')<<setw(50);
-    cout<<"}"<<endl;
-    cout<<setfill(' ');
-    cout<<endl;
+
 }
 
 void Movies::printMenuOptions(){

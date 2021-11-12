@@ -17,6 +17,7 @@ public:
     void listMovieStars();
     void findMovie();
     void printMenuOptions();
+    void outputMovieErrorLog();
 
     static int movieCount;
 

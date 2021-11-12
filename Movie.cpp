@@ -40,21 +40,10 @@ void Movie::SetGenre(string movieGenre){
 void Movie::SetYearReleased(int movieYearReleased){
     yearReleased=movieYearReleased;
 }
-void Movie::addStar(string movieStar1, string movieStar2, string movieStar3){
-  // starList.push_back(movieStar1);
-   //starList.push_back(movieStar2);
-   //starList.push_back(movieStar3);
-
-}
-
-//void Movie::SetStars()
 
 
 
 
-void Movie::DisplayStars() {
-
-}
 
 
 
@@ -84,27 +73,4 @@ int Movie::GetYearReleased(){
 
 
 
-void Movie::PrintMovie(){
-    cout << "Movie: " << title << " : " << duration <<endl;
-    int i;
-    for(i=0;i<starList.size();++i){
-        cout<<starList.at(i)<<endl;
-    }
 
-}
-
-
-ostream& operator<<(ostream& out, Movie const& movie){
-    out<<movie.title<<endl;
-    out<<movie.director<<endl;
-    out<<movie.rating<<endl;
-    out<<movie.genre<<endl;
-    out<<movie.duration<<endl;
-    out<<movie.yearReleased<<endl;
-
-
-    //copy(movie.starList.begin(), movie.starList.end(), ostream_iterator<string>(out, "\n"));
-
-return out;
-
-}
