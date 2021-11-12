@@ -96,13 +96,10 @@ int Movies::readData (){
 
         }
 
-
     }
-
-
-
     return 0;
 }
+
 
 void Movies::outputMovieErrorLog(){
     Movies myMovies;
@@ -122,9 +119,9 @@ void Movies::outputMovieErrorLog(){
 
 }
 
+
 void Movies::printMovieList () {
     Movie movies;
-
     cout<<"YOUR MOVIE LIST"<<endl;
     cout<<endl;
     cout<<"#"<<setw(16)<<"TITLE"<<setw(17)<<"YEAR"<<setw(10)<<"RATING"<<endl;
@@ -133,9 +130,6 @@ void Movies::printMovieList () {
         cout <<i+1<<" "<<setw(27)<<left<< movieList.at(i).GetTitle()<<" ";
         cout <<movieList.at(i).GetYearReleased()<<"      ";
         cout << movieList.at(i).GetRating();
-
-
-
         cout << endl;
     }
     cout<<endl;
@@ -154,7 +148,6 @@ void Movies::listMovieStars() {
                 if(found==-1){
                     matchCount+=1;
                 }
-               // cout<<found;
                 //if the string is not found, then it will return a -1
                 //since each movie is being traversed, it will
                 //output a total equivalent to the number of movies
@@ -162,28 +155,22 @@ void Movies::listMovieStars() {
                 foundIndex.push_back(found);
 
         }
-        cout<<matchCount;
-        cout<<endl;
-
-
 
             if(matchCount==movieList.size()){
                 throw runtime_error("is not found in your movie library");
             }
-
-
 
         cout << "THE STARS OF THE MOVIE \"" << userInput << "\" ARE:" << endl;
         cout << "{";
         cout << setfill('=') << setw(50);
         cout << "}" << endl;
         cout << setfill(' ');
+
         for (int i = 0; i < movieList.size(); ++i) {
             if (userInput == movieList.at(i).GetTitle()) {
                 cout << movieList.at(i).starList.at(0) << endl;
                 cout << movieList.at(i).starList.at(1) << endl;
                 cout << movieList.at(i).starList.at(2) << endl;
-
             }
         }
 
@@ -220,14 +207,10 @@ void Movies::findMovie(){
             if(found3==-1){
                 matchCount+=1;
             }
-
             //if the string is not found, then it will return a -1
             //since each movie is being traversed, it will
             //output a total equivalent to the number of movies
-
         }
-        cout<<matchCount;
-        cout<<endl;
 
             if(matchCount>=19){
                 throw runtime_error("is not found in any movies in your movie library");
@@ -264,8 +247,8 @@ void Movies::findMovie(){
             cout<<"Sorry, but the star: \""<<userInput<<"\" "<<inputError.what()<<endl;
             cout<<endl;
     }
-
 }
+
 
 void Movies::printMenuOptions(){
     Movies myMovies;
@@ -313,5 +296,4 @@ void Movies::printMenuOptions(){
             cout<<endl;
         }
     }
-
 }
