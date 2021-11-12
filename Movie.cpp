@@ -11,13 +11,11 @@ using namespace std;
 //default constructor
 Movie::Movie(){
 title="";
-director="r";
+director="";
 rating=0;
 genre="";
 duration=0;
 yearReleased=0000;
-//do I need to initialize the vector data member?
-//starList={"", "", ""};
 
 }
 
@@ -42,15 +40,16 @@ void Movie::SetGenre(string movieGenre){
 void Movie::SetYearReleased(int movieYearReleased){
     yearReleased=movieYearReleased;
 }
-void Movie::addStar(string movieStar){
-   starList.push_back(movieStar);
-}
-
-vector<string> Movie::GetStars(){
-
-return starList;
+void Movie::addStar(string movieStar1, string movieStar2, string movieStar3){
+  // starList.push_back(movieStar1);
+   //starList.push_back(movieStar2);
+   //starList.push_back(movieStar3);
 
 }
+
+//void Movie::SetStars()
+
+
 
 
 void Movie::DisplayStars() {

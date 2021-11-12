@@ -9,9 +9,14 @@
 #include <sstream>
 #include <vector>
 #include "Movies.h"
+#include <iomanip>
+#include <string>
 using namespace std;
 
-int Movies::loadMovies (){
+
+
+
+int Movies::readData (){
     ifstream inFile;
     int duration, rating, yearReleased;
     inFile.open("/Users/sogent/Downloads/movieList (1).csv");
@@ -44,6 +49,11 @@ int Movies::loadMovies (){
                 duration =  stoi(row[5]);
 
                 yearReleased=stoi(row[6]);
+                //tempStars vector<string>;
+                //for (int i = 7; i < row.size(); i ++){
+                //   tempStars.push_back(row[i]);
+                // }
+
 
                 star1=row[7];
 
@@ -55,21 +65,31 @@ int Movies::loadMovies (){
 
             }
             catch (invalid_argument& e){
-                cout << e.what() << " can not be converted to int" << endl;
-                return -1;
+                //cout << e.what() << " can not be converted to int" << endl;
+                movieErrorList.push_back(inLine);
+                movieErrorList.emplace_back(e.what());
+                continue;
             }
             //setting all the data members then pushing onto vector that holds Movie objects
+            tempMovie.starList.push_back(star1);
+            tempMovie.starList.push_back(star2);
+            tempMovie.starList.push_back(star3);
+
             tempMovie.SetTitle(title);
             tempMovie.SetDirector(director);
             tempMovie.SetRating(rating);
             tempMovie.SetGenre(genre);
             tempMovie.SetDuration(duration);
             tempMovie.SetYearReleased(yearReleased);
-            tempMovie.addStar(star1);
-            tempMovie.addStar(star2);
-            tempMovie.addStar(star3);
+            //tempMovie.starList = tempStars;
+            //tempMovie.addStar(star1, star2, star3);
+            //tempMovie.addStar(star2);
+            //tempMovie.addStar(star3);
             movieList.push_back(tempMovie);
-            movieCount += 1;
+            //this line ensures that the stars are being pushed on their own vector
+            //instead of having the data from the previous loop included
+            tempMovie.starList.clear();
+            movieCount+=1;
 
         }
 
@@ -79,97 +99,130 @@ int Movies::loadMovies (){
 }
 
 
-void Movies::getMovie (string t){
-    for (int i = 0; i < movieList.size(); i++){
-        if (movieList.at(i).GetTitle() == t){
-            cout << movieList.at(i).GetTitle() << endl;
-        }
+void Movies::printMovieList () {
+    Movie movies;
+    cout<<"YOUR MOVIE LIST"<<endl;
+    cout<<endl;
+    cout<<"#"<<setw(16)<<"TITLE"<<setw(17)<<"YEAR"<<setw(10)<<"RATING"<<endl;
+    for (int i = 0; i < movieList.size(); i++) {
+
+        cout <<i+1<<" "<<setw(27)<<left<< movieList.at(i).GetTitle()<<" ";
+        cout <<movieList.at(i).GetYearReleased()<<"      ";
+        cout << movieList.at(i).GetRating();
+
+
+
+        cout << endl;
     }
+    cout<<endl;
 }
 
+void Movies::listMovieStars(){
+    string userInput;
+    cout<<"Enter the Movie's title: ";
+    getline(cin, userInput);
+    cout<<endl;
+    cout<<"THE STARS OF THE MOVE "<<userInput<<" ARE:"<<endl;
+    //formatting line
+    cout<<"{";
+    cout<<setfill('=')<<setw(50);
+    cout<<"}"<<endl;
+    cout<<setfill(' ');
+    for(int i=0;i<movieList.size();++i){
+        if(userInput==movieList.at(i).GetTitle()){
+            cout<<movieList.at(i).starList.at(0)<<endl;
+            cout<<movieList.at(i).starList.at(1)<<endl;
+            cout<<movieList.at(i).starList.at(2)<<endl;
 
+        }
+    }
+    cout<<"{";
+    cout<<setfill('=')<<setw(50);
+    cout<<"}"<<endl;
+    cout<<setfill(' ');
+    cout<<endl;
 
-void Movies::printMovies (){
-Movie movies;
+}
 
-for (int i = 0; i < movieList.size(); i++) {
+void Movies::findMovie(){
+    string userInput;
+    cout<<"Enter the Star's name: ";
+    getline(cin, userInput);
+    cout<<endl;
 
-    movies = movieList.at(i);
+    cout<<"{";
+    cout<<setfill('=')<<setw(50);
+    cout<<"}"<<endl;
+    cout<<setfill(' ');
+    cout<<userInput<<" appears in the following movie(s):"<<endl;
 
-    cout << movieList.at(i).GetTitle() << endl;
-    cout << movieList.at(i).GetDirector() << endl;
-    cout << movieList.at(i).GetRating() << endl;
-    cout << movieList.at(i).GetGenre() << endl;
-    cout << movieList.at(i).GetDuration() << endl;
-    cout << movieList.at(i).GetYearReleased() << endl;
+    for(int i=0;i<movieList.size();++i){
+        if(userInput==movieList.at(i).starList.at(0)){
 
+            cout << movieList.at(i).GetTitle()<<endl;
 
+        }else if(userInput==movieList.at(i).starList.at(1)){
 
-    if(i==0){
-        cout<<movies.starList.at(0)<<endl;
-        cout<<movies.starList.at(1)<<endl;
-        cout<<movies.starList.at(2)<<endl;
-        cout<<endl;
+            cout << movieList.at(i).GetTitle()<<endl;
+
+        }else if(userInput==movieList.at(i).starList.at(2)){
+
+            cout << movieList.at(i).GetTitle()<<endl;
+        }
 
     }
+    cout<<"{";
+    cout<<setfill('=')<<setw(50);
+    cout<<"}"<<endl;
+    cout<<setfill(' ');
+    cout<<endl;
+}
 
-    if(i==1){
-        cout<<movies.starList.at(3)<<endl;
-        cout<<movies.starList.at(4)<<endl;
-        cout<<movies.starList.at(5)<<endl;
-        cout<<endl;
+void Movies::printMenuOptions(){
+    Movies myMovies;
+    myMovies.readData();
 
+    bool run=true;
+    while(run) {
+        try {
+            cout << setw(18) << right << "MENU CHOICES" << endl;
+            cout << "M - Print Movie List" << endl;
+            cout << "S - Print Stars for a Given Movie" << endl;
+            cout << "F - Find the Movie the Star is in" << endl;
+            cout << "Q - Quit" << endl;
+            cout << endl;
+            cout << "Enter your choice: ";
+            char userInput;
+            char userInput1;
+
+            cin>>userInput1;
+            userInput= toupper(userInput1);
+
+            cout << "You have entered: " << userInput << endl;
+            cout << endl;
+            cin.ignore();
+
+            if (userInput == 'M') {
+                myMovies.printMovieList();
+
+            } else if (userInput == 'S') {
+                myMovies.listMovieStars();
+
+            } else if (userInput == 'F') {
+                myMovies.findMovie();
+
+            } else if (userInput == 'Q') {
+                run = false;
+
+            }else{
+                throw runtime_error("Invalid input, please try again");
+            }
+
+
+        }catch(runtime_error& inputError){
+            cout<<inputError.what()<<endl;
+            cout<<endl;
+        }
     }
-
-    if(i==2){
-        cout<<movies.starList.at(6)<<endl;
-        cout<<movies.starList.at(7)<<endl;
-        cout<<movies.starList.at(8)<<endl;
-        cout<<endl;
-    }
-
-    if(i==3){
-        cout<<movies.starList.at(9)<<endl;
-        cout<<movies.starList.at(10)<<endl;
-        cout<<movies.starList.at(11)<<endl;
-        cout<<endl;
-    }
-
-    if(i==4){
-        cout<<movies.starList.at(12)<<endl;
-        cout<<movies.starList.at(13)<<endl;
-        cout<<movies.starList.at(14)<<endl;
-        cout<<endl;
-    }
-
-    if(i==5){
-        cout<<movies.starList.at(15)<<endl;
-        cout<<movies.starList.at(16)<<endl;
-        cout<<movies.starList.at(17)<<endl;
-        cout<<endl;
-    }
-
-    if(i==6){
-        cout<<movies.starList.at(18)<<endl;
-        cout<<movies.starList.at(19)<<endl;
-        cout<<movies.starList.at(20)<<endl;
-        cout<<endl;
-    }
-
-    if(i==7){
-        cout<<movies.starList.at(21)<<endl;
-        cout<<movies.starList.at(22)<<endl;
-        cout<<movies.starList.at(23)<<endl;
-        cout<<endl;
-    }
-
-    if(i==8){
-        cout<<movies.starList.at(24)<<endl;
-        cout<<movies.starList.at(25)<<endl;
-        cout<<movies.starList.at(26)<<endl;
-        cout<<endl;
-    }
-
-  }
 
 }

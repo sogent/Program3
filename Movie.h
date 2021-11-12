@@ -22,7 +22,7 @@ public:
     void SetGenre(string movieGenre);
     void SetDuration(int movieDuration);
     void SetYearReleased(int movieYearReleased);
-    void addStar(string movieStar);
+    void addStar(string movieStar1, string movieStar2, string movieStar3);
 
     //getters
     string GetTitle();
@@ -31,7 +31,7 @@ public:
     string GetGenre();
     int GetDuration();
     int GetYearReleased();
-    vector<string> GetStars();
+
     void DisplayStars();
 
 

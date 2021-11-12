@@ -12,12 +12,17 @@ using namespace std;
 
 class Movies {
 public:
-    int loadMovies ();
-    void printMovies();
-    void getMovie (string t);
+    int readData();
+    void printMovieList();
+    void listMovieStars();
+    void findMovie();
+    void printMenuOptions();
+
     static int movieCount;
 
 
+
     vector <Movie> movieList;
+    vector <string> movieErrorList;
 };
 #endif //PROGRAM3A_MOVIES_H

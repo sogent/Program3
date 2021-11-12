@@ -8,9 +8,19 @@ int main() {
 
     Movies myMovies;
 
-    myMovies.loadMovies();
+    myMovies.readData();
     cout<<"There are: " << Movies::movieCount << " movies in my library" << endl;
     cout<<endl;
-    myMovies.printMovies();
+    myMovies.printMovieList();
+
+    //myMovies.listMovieStars();
+    myMovies.printMenuOptions();
+
+
+
+
+
+
+
 
 }
