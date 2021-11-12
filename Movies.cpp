@@ -10,12 +10,8 @@
 #include <vector>
 #include "Movies.h"
 #include <iomanip>
-#include <string>
 #include <fstream>
 using namespace std;
-
-
-
 
 int Movies::readData (){
 
@@ -68,7 +64,6 @@ int Movies::readData (){
 
             }
             catch (invalid_argument& e){
-                //cout << e.what() << " can not be converted to int" << endl;
                 movieErrorList.push_back(inLine);
                 movieErrorList.emplace_back(e.what());
                 continue;
