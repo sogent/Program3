@@ -11,8 +11,6 @@ using namespace std;
 class Movie {
 
 public:
-    //default constructor
-    Movie();
 
     //setters
     void SetTitle(string movieTitle);
@@ -30,8 +28,6 @@ public:
     string GetGenre();
     int GetDuration();
     int GetYearReleased();
-
-
     vector<string> starList;
 private:
     string title;
@@ -40,6 +36,5 @@ private:
     string genre;
     int duration;
     int yearReleased;
-
 };
 #endif //PROGRAM3A_MOVIE_H

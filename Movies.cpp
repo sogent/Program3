@@ -13,6 +13,14 @@
 #include <fstream>
 using namespace std;
 
+/*
+ *Pre-condition:
+ * There must be a csv file already indicated to open
+ * Post-condition:
+ * vector data member "movieList" of the Movies class is loaded with objects of the class Movie
+ * vector data member "movieErrorList" of the Movies class is loaded with any errors from input file
+ */
+
 int Movies::readData (){
 
 
@@ -95,7 +103,12 @@ int Movies::readData (){
     return 0;
 }
 
-
+/*
+ * Pre-condition:
+ * vector data member "movieErrorList" must be loaded with input file errors
+ * Post-condition:
+ * data in "movieErrorList" vector has been output to new file
+ */
 void Movies::outputMovieErrorLog(){
     Movies myMovies;
     myMovies.readData();
@@ -114,7 +127,13 @@ void Movies::outputMovieErrorLog(){
 
 }
 
-
+/*
+ * Pre-condition:
+ * vector data member "movieList" of class Movies must be loaded with data from input file, which are
+ * now objects of the class Movie
+ * Post-condition:
+ * specific data members (title, yearReleased, rating) of each object of the Movie class are output
+ */
 void Movies::printMovieList () {
     Movie movies;
     cout<<"YOUR MOVIE LIST"<<endl;
@@ -130,6 +149,15 @@ void Movies::printMovieList () {
     cout<<endl;
 }
 
+/*
+ * Pre-condition:
+ * 1.vector data member "movieList" of class Movies must be loaded with data from input file, which are
+ * now objects of the class Movie
+ * 2.user must provide title of movie
+ * Post-condition:
+ * specific data members (elements from Movie data member, starList vector) of each object of the
+ * Movie class are output
+ */
 void Movies::listMovieStars() {
     string userInput;
     cout << "Enter the Movie's title: ";
@@ -180,7 +208,15 @@ void Movies::listMovieStars() {
     }
 }
 
-
+/*
+ * Pre-condition:
+ * 1. vector data member "movieList" of class Movies must be loaded with data from input file, which are
+ * now objects of the class Movie
+ * 2. user must provide name of movie star
+ * Post-condition:
+ * specific data member (title) of each object of the
+ * Movie class are output which name of movie star input is present in
+ */
 
 void Movies::findMovie(){
     string userInput;
@@ -244,7 +280,13 @@ void Movies::findMovie(){
     }
 }
 
-
+/*
+ * Pre-condition:
+ * 1. object of the class Movies must be declared
+ * 2. object previously declared must call readData() function
+ * Post-condition:
+ * menu options are printed for user to select
+ */
 void Movies::printMenuOptions(){
     Movies myMovies;
     myMovies.readData();

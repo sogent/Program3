@@ -20,9 +20,6 @@ public:
     void outputMovieErrorLog();
 
     static int movieCount;
-
-
-
     vector <Movie> movieList;
     vector <string> movieErrorList;
 };
